@@ -49,12 +49,13 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
      */
     protected function _prepareCollection()
     {
-        /** @var Mage_SalesRule_Model_Resource_Rule_Collection $collection  */
-        $collection = Mage::getModel('salesrule/rule')
-            ->getResourceCollection();
-        $collection->addWebsitesToResult();
-        $collection->addFilterToMap('times_used', 'main_table.times_used');
-        $this->setCollection($collection);
+        if (!$this->getCollection()) {
+            /** @var $collection Mage_SalesRule_Model_Resource_Rule_Collection */
+            $collection = Mage::getModel('salesrule/rule')
+                ->getResourceCollection();
+            $collection->addWebsitesToResult();
+            $this->setCollection($collection);
+        }
 
         parent::_prepareCollection();
         return $this;
