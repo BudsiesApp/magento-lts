@@ -69,7 +69,7 @@ class Mage_Sales_Model_Resource_Report_Order_Createdat extends Mage_Sales_Model_
                 $subSelect = $this->_getTableDateRangeSelect(
                     $this->getTable('sales/order'),
                     $aggregationField,
-                    $aggregationField,
+                    'updated_at',
                     $from,
                     $to
                 );
