@@ -224,8 +224,7 @@ class Mage_Sales_Model_Service_Order
 
             $item = $this->_convertor->itemToCreditmemoItem($orderItem);
             if ($orderItem->isDummy()) {
-                $qty = 1;
-                $orderItem->setLockedDoShip(true);
+                $qty = $this->_getRefundQty($orderItem, $qtys);
             } else {
                 if (isset($qtys[$orderItem->getId()])) {
                     $qty = (float) $qtys[$orderItem->getId()];
@@ -269,7 +268,7 @@ class Mage_Sales_Model_Service_Order
                 && $createdCreditmemo->getInvoiceId() == $invoice->getId()
             ) {
                 foreach ($createdCreditmemo->getAllItems() as $createdCreditmemoItem) {
-                    $orderItemId = $createdCreditmemoItem->getOrderItem()->getId();
+                    $orderItemId = (int)$createdCreditmemoItem->getOrderItem()->getId();
                     if (isset($invoiceQtysRefunded[$orderItemId])) {
                         $invoiceQtysRefunded[$orderItemId] += $createdCreditmemoItem->getQty();
                     } else {
@@ -282,7 +281,7 @@ class Mage_Sales_Model_Service_Order
         $invoiceQtysRefundLimits = [];
         foreach ($invoice->getAllItems() as $invoiceItem) {
             $invoiceQtyCanBeRefunded = $invoiceItem->getQty();
-            $orderItemId = $invoiceItem->getOrderItem()->getId();
+            $orderItemId = (int)$invoiceItem->getOrderItem()->getId();
             if (isset($invoiceQtysRefunded[$orderItemId])) {
                 $invoiceQtyCanBeRefunded = $invoiceQtyCanBeRefunded - $invoiceQtysRefunded[$orderItemId];
             }
@@ -298,7 +297,7 @@ class Mage_Sales_Model_Service_Order
 
             $item = $this->_convertor->itemToCreditmemoItem($orderItem);
             if ($orderItem->isDummy()) {
-                $qty = 1;
+                $qty = $this->_getRefundQty($orderItem, $qtys);
             } else {
                 if (isset($qtys[$orderItem->getId()])) {
                     $qty = (float) $qtys[$orderItem->getId()];
@@ -323,9 +322,8 @@ class Mage_Sales_Model_Service_Order
             $order = $invoice->getOrder();
             $isShippingInclTax = Mage::getSingleton('tax/config')->displaySalesShippingInclTax($order->getStoreId());
             if ($isShippingInclTax) {
-                $baseAllowedAmount = $order->getBaseShippingInclTax()
-                        - $order->getBaseShippingRefunded()
-                        - $order->getBaseShippingTaxRefunded();
+                $baseAllowedAmount = $order->getBaseShippingInclTax() - $order->getBaseShippingRefunded()
+                    - $order->getBaseShippingTaxRefunded();
             } else {
                 $baseAllowedAmount = $order->getBaseShippingAmount() - $order->getBaseShippingRefunded();
                 $baseAllowedAmount = min($baseAllowedAmount, $invoice->getBaseShippingAmount());
@@ -335,6 +333,35 @@ class Mage_Sales_Model_Service_Order
 
         $creditmemo->collectTotals();
         return $creditmemo;
+    }
+
+    /**
+     * Get item refund qty
+     *
+     * @param Mage_Sales_Model_Order_Item $item
+     * @param array $qtys
+     * @return int
+     */
+    protected function _getRefundQty(Mage_Sales_Model_Order_Item $item, array $qtys = []): int
+    {
+        $this->updateLocaleNumbers($qtys);
+
+        if (empty($qtys)) {
+            return (int) max($item->getQtyInvoiced() - $item->getQtyRefunded(), 0);
+        }
+
+        if (!$item->getHasChildren()) {
+            return 1;
+        }
+
+        $refundQtys = [];
+        foreach ($item->getChildrenItems() as $child) {
+            if (isset($qtys[$child->getId()]) && $qtys[$child->getId()] >= 0) {
+                $refundQtys[] = (int)$qtys[$child->getId()] + (int)$child->getQtyRefunded();
+            }
+        }
+
+        return empty($refundQtys) ? 0 : min($refundQtys) - (int)$item->getQtyRefunded();
     }
 
     /**
@@ -470,7 +497,7 @@ class Mage_Sales_Model_Service_Order
                             return true;
                         }
                     } else {
-                        if (isset($qtys[$child->getId()]) && $qtys[$child->getId()] > 0) {
+                        if (isset($qtys[$child->getId()]) && $qtys[$child->getId()] >= 0) {
                             return true;
                         }
                     }
