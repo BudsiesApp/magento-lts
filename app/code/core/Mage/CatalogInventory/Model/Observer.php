@@ -158,6 +158,7 @@ class Mage_CatalogInventory_Model_Observer
         }
         $this->_prepareItemForSave($item, $product);
         $item->save();
+        $item->assignProduct($product);
         return $this;
     }
 
