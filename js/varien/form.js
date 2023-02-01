@@ -161,7 +161,9 @@ RegionUpdater.prototype = {
     initialize: function (countryEl, regionTextEl, regionSelectEl, regions, disableAction, zipEl){
         this.countryEl = $(countryEl);
         this.regionTextEl = $(regionTextEl);
+        this.regionTextWrapperEl = jQuery(this.regionTextEl).closest('._region-text-wrapper')[0];
         this.regionSelectEl = $(regionSelectEl);
+        this.regionSelectWrapperEl = jQuery(this.regionSelectEl).closest('._region-select-wrapper')[0];
         this.zipEl = $(zipEl);
         this.config = regions['config'];
         delete regions.config;
@@ -239,6 +241,8 @@ RegionUpdater.prototype = {
     },
 
     update: function(){
+        this.toggleTelephoneDisplay();
+
         if (this.regions[this.countryEl.value]) {
             var i, option, region, def;
 
@@ -274,10 +278,10 @@ RegionUpdater.prototype = {
             this.sortSelect();
             if (this.disableAction == 'hide') {
                 if (this.regionTextEl) {
-                    this.regionTextEl.style.display = 'none';
+                    this.regionTextWrapperEl.style.display = 'none';
                 }
 
-                this.regionSelectEl.style.display = '';
+                this.regionSelectWrapperEl.style.display = '';
             } else if (this.disableAction == 'disable') {
                 if (this.regionTextEl) {
                     this.regionTextEl.disabled = true;
@@ -290,9 +294,9 @@ RegionUpdater.prototype = {
             this.sortSelect();
             if (this.disableAction == 'hide') {
                 if (this.regionTextEl) {
-                    this.regionTextEl.style.display = '';
+                    this.regionTextWrapperEl.style.display = '';
                 }
-                this.regionSelectEl.style.display = 'none';
+                this.regionSelectWrapperEl.style.display = 'none';
                 Validation.reset(this.regionSelectEl);
             } else if (this.disableAction == 'disable') {
                 if (this.regionTextEl) {
@@ -312,6 +316,25 @@ RegionUpdater.prototype = {
         // Make Zip and its label required/optional
         var zipUpdater = new ZipUpdater(this.countryEl.value, this.zipEl);
         zipUpdater.update();
+    },
+
+    toggleTelephoneDisplay: function () {
+        var countryElementId = this.countryEl.id;
+        var type = countryElementId.split(':')[0];
+        var billingOrShippingForm = ('#co-' + type + '-form');
+        if (!billingOrShippingForm.length) {
+            return;
+        }
+        var telephoneLineBlock = jQuery('._telephone-line', billingOrShippingForm);
+        var telephoneInput = jQuery('[name="' + type + '[telephone]"]', telephoneLineBlock);
+        if (this.countryEl.value !== 'US') {
+            telephoneLineBlock.addClass('-required');
+            telephoneInput.addClass('required-entry');
+        } else {
+            telephoneLineBlock.removeClass('-required');
+            telephoneInput.removeClass('required-entry validation-failed');
+            jQuery('.validation-advice', telephoneLineBlock).hide();
+        }
     },
 
     setMarkDisplay: function(elem, display){
