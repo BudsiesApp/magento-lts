@@ -774,8 +774,16 @@ class Mage_CatalogInventory_Model_Observer
         $stockCollection->getSelect()->reset(Zend_Db_Select::COLUMNS)->columns(['product_id']);
         $productIds = $stockCollection->getColumnValues('product_id');
 
-        if (count($productIds)) {
-            Mage::getResourceSingleton('cataloginventory/indexer_stock')->reindexProducts($productIds);
+        $stockIndexProcess = Mage::getModel('index/process')->load('cataloginventory_stock', 'indexer_code');
+
+        if (count($productIds) && $stockIndexProcess->getMode() === Mage_Index_Model_Process::MODE_REAL_TIME) {
+            $stockIndexProcess->lockAndBlock();
+
+            try {
+                Mage::getResourceSingleton('cataloginventory/indexer_stock')->reindexProducts($productIds);
+            } finally {
+                $stockIndexProcess->unlock();
+            }
         }
 
         // Reindex previously remembered items
@@ -784,7 +792,18 @@ class Mage_CatalogInventory_Model_Observer
             $item->save();
             $productIds[] = $item->getProductId();
         }
-        Mage::getResourceSingleton('catalog/product_indexer_price')->reindexProductIds($productIds);
+
+        $priceIndexProcess = Mage::getModel('index/process')->load('catalog_product_price', 'indexer_code');
+
+        if (count($productIds) && $priceIndexProcess->getMode() === Mage_Index_Model_Process::MODE_REAL_TIME) {
+            $priceIndexProcess->lockAndBlock();
+
+            try {
+                Mage::getResourceSingleton('catalog/product_indexer_price')->reindexProductIds($productIds);
+            } finally {
+                $priceIndexProcess->unlock();
+            }
+        }
 
         $this->_itemsForReindex = []; // Clear list of remembered items - we don't need it anymore
 
