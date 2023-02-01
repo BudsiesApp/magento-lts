@@ -89,7 +89,8 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
         // retrieve product types by processIds
         $select = $adapter->select()
             ->from($this->getTable('catalog/product'), ['entity_id', 'type_id'])
-            ->where('entity_id IN(?)', $processIds);
+            ->where('entity_id IN(?)', $processIds)
+            ->forUpdate();
         $pairs  = $adapter->fetchPairs($select);
 
         $byType = [];
