@@ -114,6 +114,11 @@
                     </cache_option>
                 </entities>
             </core_resource>
+            <newsletter_resource>
+                <rewrite>
+                    <subscriber>Optimus_Newsletter_Model_Resource_Subscriber</subscriber>
+                </rewrite>
+            </newsletter_resource>
         </models>
     </global>
     <default>
@@ -138,7 +143,7 @@
         </system>
         <dev>
             <template>
-                <allow_symlink>0</allow_symlink>
+                <allow_symlink>1</allow_symlink>
             </template>
             <log>
                 <file>system.log</file>
