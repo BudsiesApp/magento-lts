@@ -289,7 +289,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Retrieve time shift
      *
-     * @param string $datetime
+     * @param string|int|Zend_Date|array|null $datetime
      * @return string
      */
     public function timeShift($datetime)
