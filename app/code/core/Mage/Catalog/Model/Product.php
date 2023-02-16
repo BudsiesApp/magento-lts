@@ -232,7 +232,7 @@
  * @method string getThumbnail()
  * @method float getTaxPercent()
  * @method $this setTaxPercent(float $value)
- * @method $this setTypeId(int $value)
+ * @method $this setTypeId(string $value)
  * @method bool getTypeHasOptions()
  * @method $this setTypeHasOptions(bool $value)
  * @method bool getTypeHasRequiredOptions()
