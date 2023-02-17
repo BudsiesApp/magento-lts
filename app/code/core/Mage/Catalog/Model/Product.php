@@ -1218,7 +1218,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     /**
      * Retrieve media gallery images
      *
-     * @return Varien_Data_Collection
+     * @return Varien_Data_Collection|null
      */
     public function getMediaGalleryImages()
     {
