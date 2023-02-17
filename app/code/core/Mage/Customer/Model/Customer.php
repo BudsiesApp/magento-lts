@@ -625,7 +625,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     /**
      * Get default customer shipping address
      *
-     * @return Mage_Customer_Model_Address
+     * @return Mage_Customer_Model_Address|false
      * @throws Mage_Core_Exception
      */
     public function getDefaultShippingAddress()
