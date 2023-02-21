@@ -37,7 +37,7 @@
  * @method $this setCity(string $value)
  * @method string getTelephone()
  * @method $this setTelephone(string $value)
- * @method int getCountryId()
+ * @method string getCountryId()
  * @method $this setCountryId(string $value)
  * @method string getPostcode()
  * @method $this setPostcode(string $value)
