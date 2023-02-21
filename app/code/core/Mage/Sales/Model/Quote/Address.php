@@ -124,7 +124,7 @@
  * @method string getFirstname()
  * @method $this setFirstname(string $value)
  * @method float getFreeMethodWeight()
- * @method $this setFreeMethodWeight(int $value)
+ * @method $this setFreeMethodWeight(float $value)
  * @method int getFreeShipping()
  * @method $this setFreeShipping(int $value)
  *
