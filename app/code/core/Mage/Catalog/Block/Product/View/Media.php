@@ -41,7 +41,7 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
     /**
      * Retrieve list of gallery images
      *
-     * @return array|Varien_Data_Collection
+     * @return array|Varien_Data_Collection|null
      */
     public function getGalleryImages()
     {

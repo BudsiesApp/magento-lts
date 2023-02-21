@@ -48,7 +48,7 @@
  * @method bool hasSyncProcessStopWatch()
  * @method bool getSyncProcessStopWatch()
  * @method $this setSyncProcessStopWatch(bool $value)
- * @method Mage_Admin_Model_User getUser()
+ * @method Mage_Admin_Model_User|null getUser()
  * @method $this setUser(Mage_Admin_Model_User $user)
  */
 class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract

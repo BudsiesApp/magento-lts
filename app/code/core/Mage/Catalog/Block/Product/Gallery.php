@@ -48,7 +48,7 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
     }
 
     /**
-     * @return Varien_Data_Collection
+     * @return Varien_Data_Collection|null
      */
     public function getGalleryCollection()
     {
