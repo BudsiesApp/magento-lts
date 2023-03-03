@@ -205,7 +205,7 @@ abstract class Mage_Api2_Model_Resource
                 $this->_critical('Access denied', 403);
             }
         }
-        
+
         switch ($this->getActionType() . $this->getOperation()) {
             /* Create */
             case self::ACTION_TYPE_ENTITY . self::OPERATION_CREATE:
