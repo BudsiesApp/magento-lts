@@ -53,7 +53,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Grid extends Mage_Adminhtml_Block_Widget_
         $collection = $this->getCollection();
 
         // Skip collection creation (For cases if it's created in rewrite)
-        if (!$this->getCollection()) {
+        if (!$collection) {
             /** @var Mage_SalesRule_Model_Resource_Rule_Collection $collection */
             $collection = Mage::getModel('salesrule/rule')
                 ->getResourceCollection();
