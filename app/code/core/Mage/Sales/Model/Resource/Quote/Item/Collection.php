@@ -26,7 +26,7 @@
  * @package    Mage_Sales
  * @author     Magento Core Team <core@magentocommerce.com>
  *
- * @method Mage_Sales_Model_Quote_Item|null getItemById(int $value)
+ * @method Mage_Sales_Model_Quote_Item getItemById(int $value)
  * @method Mage_Sales_Model_Quote_Item[] getItems()
  */
 class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract

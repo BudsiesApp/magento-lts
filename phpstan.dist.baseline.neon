@@ -211,11 +211,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/Addresses.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Customer/Edit/Tab/View.php
@@ -2791,11 +2786,6 @@ parameters:
 			path: app/code/core/Mage/Checkout/Block/Links.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Checkout/Block/Onepage/Abstract.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Checkout/Block/Onepage/Billing.php
@@ -2911,11 +2901,6 @@ parameters:
 			path: app/code/core/Mage/Checkout/Model/Type/Abstract.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
-			path: app/code/core/Mage/Checkout/Model/Type/Abstract.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 4
 			path: app/code/core/Mage/Checkout/Model/Type/Multishipping.php
@@ -3002,11 +2987,6 @@ parameters:
 
 		-
 			message: "#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\\:\\:getAllOptions\\(\\) invoked with 2 parameters, 0 required\\.$#"
-			count: 1
-			path: app/code/core/Mage/ConfigurableSwatches/Helper/Productimg.php
-
-		-
-			message: "#^Variable \\$mediaGalleryImages in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: app/code/core/Mage/ConfigurableSwatches/Helper/Productimg.php
 
@@ -3771,11 +3751,6 @@ parameters:
 			path: app/code/core/Mage/CurrencySymbol/Model/System/Currencysymbol.php
 
 		-
-			message: "#^Else branch is unreachable because previous condition is always true\\.$#"
-			count: 2
-			path: app/code/core/Mage/Customer/Block/Account/Dashboard/Address.php
-
-		-
 			message: "#^Call to an undefined method Mage_Wishlist_Model_Resource_Item_Collection\\:\\:addAttributeToSelect\\(\\)\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/Block/Account/Dashboard/Sidebar.php
@@ -3784,11 +3759,6 @@ parameters:
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/Block/Account/Dashboard/Sidebar.php
-
-		-
-			message: "#^Property Mage_Customer_Block_Account_Navigation\\:\\:\\$_activeLink \\(bool\\) does not accept string\\.$#"
-			count: 2
-			path: app/code/core/Mage/Customer/Block/Account/Navigation.php
 
 		-
 			message: "#^Left side of \\|\\| is always true\\.$#"
@@ -3897,12 +3867,7 @@ parameters:
 
 		-
 			message: "#^If condition is always true\\.$#"
-			count: 4
-			path: app/code/core/Mage/Customer/Model/Customer.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
+			count: 2
 			path: app/code/core/Mage/Customer/Model/Customer.php
 
 		-
@@ -6207,7 +6172,7 @@ parameters:
 
 		-
 			message: "#^Left side of && is always true\\.$#"
-			count: 4
+			count: 2
 			path: app/code/core/Mage/Sales/Model/Quote.php
 
 		-
@@ -6251,17 +6216,7 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Quote/Address.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Address.php
-
-		-
 			message: "#^Method Mage_Sales_Model_Quote_Address\\:\\:getItemsCollection\\(\\) should return Mage_Eav_Model_Entity_Collection_Abstract but returns Mage_Sales_Model_Resource_Quote_Address_Item_Collection\\.$#"
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Address.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Quote/Address.php
 
@@ -6793,11 +6748,6 @@ parameters:
 		-
 			message: "#^Property Mage_Tax_Model_Calculation\\:\\:\\$_defaultCustomerTaxClass \\(string\\) does not accept int\\.$#"
 			count: 1
-			path: app/code/core/Mage/Tax/Model/Calculation.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 2
 			path: app/code/core/Mage/Tax/Model/Calculation.php
 
 		-

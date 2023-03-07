@@ -1,6 +1,6 @@
 <p align="center">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<a href="#contributors-"><img src="https://img.shields.io/badge/all_contributors-151-orange.svg" alt="All Contributors"></a>
+<a href="#contributors-"><img src="https://img.shields.io/badge/all_contributors-152-orange.svg" alt="All Contributors"></a>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/openmage/magento-lts"><img src="https://poser.pugx.org/openmage/magento-lts/license.svg" alt="License"></a>
@@ -23,6 +23,7 @@ level of backwards compatibility to the official releases.
 - [Requirements](#requirements)
   - [Optional](#optional)
 - [Installation](#installation)
+  - [Manual Install](#manual-install)
   - [Composer](#composer)
   - [Git](#git)
 - [Secure your installation](#secure-your-installation)
@@ -61,21 +62,64 @@ __Please be aware that although OpenMage is compatible that one or more extensio
 
 ## Installation
 
+### Manual Install
+
+Download the latest [release archive](https://github.com/OpenMage/magento-lts/releases) and extract it over your existing install. **Important:** you must download the ZIP file from a tagged version on the releases page, otherwise there will be missing dependencies.
+
 ### Composer
 
-Download the latest archive and extract it, clone the repo, or add a composer dependency to your existing project like so:
+Step 1: Create a new composer project:
 
 ```bash
-composer require "openmage/magento-lts":"^19.5.0"
+composer init
 ```
 
-To get the latest changes use:
+Step 2: Configure composer. **The below options are required.** You can see all options [here](https://github.com/AydinHassan/magento-core-composer-installer#configuration).
 
 ```bash
-composer require "openmage/magento-lts":"dev-main"
+# Allow composer to apply patches to dependencies of magento-lts
+composer config --json extra.enable-patching true
+
+# Configure Magento core composer installer to use magento-lts as the Magento source package
+composer config extra.magento-core-package-type magento-source
+
+# Configure the root directory that magento-lts will be installed to, such as "pub", "htdocs", or "www"
+composer config extra.magento-root-dir pub
 ```
 
-<small>Note: `dev-main` is just an alias for current `1.9.4.x` branch and may change</small>
+Step 3: Require `magento-core-composer-installer`:
+
+``` bash
+# PHP 7
+composer require "aydin-hassan/magento-core-composer-installer":"~2.0.0"
+
+# PHP 8
+composer require "aydin-hassan/magento-core-composer-installer":"^2.1.0"
+```
+
+<small>Note: be sure to select `y` if composer asks you to trust `aydin-hassan/magento-core-composer-installer`.</small>
+
+Step 4: Require `magento-lts`:
+
+```bash
+# OpenMage v19
+composer require "openmage/magento-lts":"^19.4.0"
+
+# OpenMage v20
+composer require "openmage/magento-lts":"^20.0.0"
+```
+
+<small>Note: be sure to select `y` if composer asks you to trust `magento-hackathon/magento-composer-installer` or `cweagans/composer-patches`.</small>
+
+To install the latest development version (may be unstable):
+
+```bash
+# OpenMage v19
+composer require "openmage/magento-lts":"1.9.4.x-dev"
+
+# OpenMage v20
+composer require "openmage/magento-lts":"20.0.x-dev"
+```
 
 ### Git
 
@@ -145,6 +189,7 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 _If you rely on those modules you can reinstall them with composer:_
 - `Mage_Backup`: `composer require openmage/module-mage-backup`
 - `Mage_PageCache`: `composer require openmage/module-mage-pagecache`
+- `Legacy frontend themes`: `composer require openmage/legacy-frontend-themes`
 
 ### Between OpenMage 19.4.18 / 20.0.16 and 19.4.19 / 20.0.17
 
@@ -161,7 +206,8 @@ Do not use 20.x.x if you need IE support.
 - reduce needless saves by avoiding setting `_hasDataChanges` flag ([#2066](https://github.com/OpenMage/magento-lts/pull/2066))
 - removed support for `global/sales/old_fields_map` defined in XML ([#921](https://github.com/OpenMage/magento-lts/pull/921))
 - enabled website level config cache ([#2355](https://github.com/OpenMage/magento-lts/pull/2355))
-- make overrides of Mage_Core_Model_Resource_Db_Abstract::delete respect parent api ([#1257](https://github.com/OpenMage/magento-lts/pull/1257))
+- made overrides of Mage_Core_Model_Resource_Db_Abstract::delete respect parent api ([#1257](https://github.com/OpenMage/magento-lts/pull/1257))
+- rewrote Mage_Eav_Model_Config as cache for all eav entity and attribute reads ([#2993](https://github.com/OpenMage/magento-lts/pull/2993))
 
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
 
@@ -505,6 +551,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/discountscott"><img src="https://avatars.githubusercontent.com/u/5454596?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Scott Moore</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/rfeese"><img src="https://avatars.githubusercontent.com/u/7074181?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Roger Feese</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/AGelzer"><img src="https://avatars.githubusercontent.com/u/34437931?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Alexander Gelzer</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://gitlab.com/davidhiendl"><img src="https://avatars.githubusercontent.com/u/11006964?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>David Hiendl</b></sub></a></td>
     </tr>
   </tbody>
 </table>
