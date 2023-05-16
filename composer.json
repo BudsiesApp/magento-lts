@@ -95,6 +95,11 @@
             "openmage/dev-translations": "copy",
             "openmage/legacy-frontend-themes": "copy"
         },
+        "magento-deploy-ignore": {
+            "*": [
+                "/.phpstorm.meta.php"
+            ]
+        },
         "magento-force": true,
         "patches": {
             "shardj/zf1-future": {
