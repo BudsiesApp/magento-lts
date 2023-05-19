@@ -2441,11 +2441,6 @@ parameters:
 			path: app/code/core/Mage/Customer/Block/Account/Dashboard/Sidebar.php
 
 		-
-			message: "#^Property Mage_Customer_Block_Account_Navigation\\:\\:\\$_activeLink \\(bool\\) does not accept string\\.$#"
-			count: 2
-			path: app/code/core/Mage/Customer/Block/Account/Navigation.php
-
-		-
 			message: "#^Method Mage_Customer_Block_Address_Edit\\:\\:getCountryId\\(\\) should return int but returns string\\.$#"
 			count: 1
 			path: app/code/core/Mage/Customer/Block/Address/Edit.php
