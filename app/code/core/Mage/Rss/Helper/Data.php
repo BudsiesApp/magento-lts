@@ -75,6 +75,9 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
             if ($adminUserExtra && !is_array($adminUserExtra)) {
                 $adminUserExtra = Mage::helper('core/unserializeArray')->unserialize($user->getExtra());
             }
+            if (!$adminUserExtra) {
+                $adminUserExtra = [];
+            }
             if (!isset($adminUserExtra['indirect_login'])) {
                 $adminUserExtra = array_merge($adminUserExtra, ['indirect_login' => true]);
                 $user->saveExtra($adminUserExtra);
