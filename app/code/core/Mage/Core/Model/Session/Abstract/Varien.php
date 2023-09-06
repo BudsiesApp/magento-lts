@@ -9,7 +9,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2023 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -66,6 +66,14 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                 /** @var Mage_Core_Model_Resource_Session $sessionResource */
                 $sessionResource = Mage::getResourceSingleton('core/session');
                 $sessionResource->setSaveHandler();
+                break;
+            case 'redis':
+                /* @var Cm_RedisSession_Model_Session $sessionResource */
+                $sessionResource = Mage::getSingleton('cm_redissession/session');
+                $sessionResource->setSaveHandler();
+                if (method_exists($sessionResource, 'setDieOnError')) {
+                    $sessionResource->setDieOnError(false);
+                }
                 break;
             case 'user':
                 // getSessionSavePath represents static function for custom session handler setup
