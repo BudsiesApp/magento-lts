@@ -153,6 +153,14 @@
                     </bundle>
                 </observers>
             </catalogindex_plain_reindex_after>
+            <sales_convert_quote_item_to_order_item>
+                <observers>
+                    <bundle_observer>
+                        <class>bundle/observer</class>
+                        <method>appendBundleSelectionData</method>
+                    </bundle_observer>
+                </observers>
+            </sales_convert_quote_item_to_order_item>
         </events>
     </global>
     <frontend>
@@ -189,14 +197,6 @@
                     </bundle_observer>
                 </observers>
             </catalog_product_upsell>
-            <sales_convert_quote_item_to_order_item>
-                <observers>
-                    <bundle_observer>
-                        <class>bundle/observer</class>
-                        <method>appendBundleSelectionData</method>
-                    </bundle_observer>
-                </observers>
-            </sales_convert_quote_item_to_order_item>
             <catalog_product_collection_load_after>
                 <observers>
                     <bundle_observer>
@@ -275,14 +275,6 @@
                     </bundle_observer>
                 </observers>
             </catalog_product_prepare_save>
-            <sales_convert_quote_item_to_order_item>
-                <observers>
-                    <bundle_observer>
-                        <class>bundle/observer</class>
-                        <method>appendBundleSelectionData</method>
-                    </bundle_observer>
-                </observers>
-            </sales_convert_quote_item_to_order_item>
             <catalog_model_product_duplicate>
                 <observers>
                     <bundle_observer>

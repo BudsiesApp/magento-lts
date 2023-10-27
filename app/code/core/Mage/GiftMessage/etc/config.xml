@@ -63,6 +63,17 @@
                 </item>
             </quote>
         </sales>
+        <events>
+            <sales_convert_quote_item_to_order_item>
+                <observers>
+                    <giftmessage>
+                        <type>model</type>
+                        <class>giftmessage/observer</class>
+                        <method>salesEventConvertQuoteItemToOrderItem</method>
+                    </giftmessage>
+                </observers>
+            </sales_convert_quote_item_to_order_item>
+        </events>
     </global>
     <default>
         <sales>
@@ -83,15 +94,6 @@
             </modules>
         </translate>
         <events>
-            <sales_convert_quote_item_to_order_item>
-                <observers>
-                    <giftmessage>
-                        <type>model</type>
-                        <class>giftmessage/observer</class>
-                        <method>salesEventConvertQuoteItemToOrderItem</method>
-                    </giftmessage>
-                </observers>
-            </sales_convert_quote_item_to_order_item>
             <sales_convert_quote_address_to_order>
                 <observers>
                     <giftmessage>
@@ -139,15 +141,6 @@
     </adminhtml>
     <frontend>
         <events>
-            <sales_convert_quote_item_to_order_item>
-                <observers>
-                    <giftmessage>
-                        <type>model</type>
-                        <class>giftmessage/observer</class>
-                        <method>salesEventConvertQuoteItemToOrderItem</method>
-                    </giftmessage>
-                </observers>
-            </sales_convert_quote_item_to_order_item>
             <sales_convert_quote_address_to_order>
                 <observers>
                     <giftmessage>
