@@ -149,10 +149,10 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
      * Convert order item to quote item
      *
      * @param Mage_Sales_Model_Order_Item $orderItem
-     * @param mixed $qtyFlag if is null set product qty like in order
+     * @param float $qty if is null set product qty like in order
      * @return $this
      */
-    public function addOrderItem($orderItem, $qtyFlag = null)
+    public function addOrderItem($orderItem, $qty = null)
     {
         if (is_null($orderItem->getParentItem())) {
             $product = Mage::getModel('catalog/product')
@@ -164,10 +164,10 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
 
             $info = $orderItem->getProductOptionByCode('info_buyRequest');
             $info = new Varien_Object($info);
-            if (is_null($qtyFlag)) {
+            if (is_null($qty)) {
                 $info->setQty($orderItem->getQtyOrdered());
             } else {
-                $info->setQty(1);
+                $info->setQty($qty);
             }
 
             $this->addProduct($product, $info);
