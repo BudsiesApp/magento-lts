@@ -408,7 +408,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Initialize creation data from existing order Item
      *
      * @param Mage_Sales_Model_Order_Item $orderItem
-     * @param int $qty
+     * @param float $qty
      * @return Mage_Sales_Model_Quote_Item | string
      */
     public function initFromOrderItem(Mage_Sales_Model_Order_Item $orderItem, $qty = null)
