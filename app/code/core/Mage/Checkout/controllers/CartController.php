@@ -291,7 +291,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         $cart = $this->_getCart();
         foreach ($itemsCollection as $item) {
             try {
-                $cart->addOrderItem($item, 1);
+                $cart->addOrderItem($item, $item->getQtyOrdered());
             } catch (Mage_Core_Exception $e) {
                 if ($this->_getSession()->getUseNotice(true)) {
                     $this->_getSession()->addNotice($e->getMessage());

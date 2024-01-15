@@ -304,7 +304,13 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                 if ($qty > 0) {
                     $item = $this->initFromOrderItem($orderItem, $qty);
                     if (is_string($item)) {
-                        Mage::throwException($item);
+                        $bundleTypeModel = Mage::getSingleton('bundle/product_type');
+
+                        if ($item === $bundleTypeModel->getSpecifyOptionMessage()) {
+                            Mage::getSingleton('adminhtml/session_quote')->addError($orderItem->getName() . ' item is not available for re-order');
+                        } else {
+                            Mage::throwException($item);
+                        }
                     }
                 }
             }
@@ -408,7 +414,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Initialize creation data from existing order Item
      *
      * @param Mage_Sales_Model_Order_Item $orderItem
-     * @param int $qty
+     * @param float $qty
      * @return Mage_Sales_Model_Quote_Item | string
      */
     public function initFromOrderItem(Mage_Sales_Model_Order_Item $orderItem, $qty = null)
