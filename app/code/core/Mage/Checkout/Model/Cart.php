@@ -244,7 +244,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
 
         $productId = $product->getId();
 
-        if (!$product->isConfigurable() && $product->getStockItem()) {
+        if (!$product->isConfigurable() && $product->hasStockItem()) {
             $minimumQty = $product->getStockItem()->getMinSaleQty();
             //If product was not found in cart and there is set minimal qty for it
             if ($minimumQty && $minimumQty > 0 && $request->getQty() < $minimumQty
@@ -272,10 +272,17 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
                     )
                     : $product->getProductUrl();
                 $this->getCheckoutSession()->setRedirectUrl($redirectUrl);
-                if ($this->getCheckoutSession()->getUseNotice() === null) {
+                if ($this->getCheckoutSession()->hasUseNotice()) {
                     $this->getCheckoutSession()->setUseNotice(true);
                 }
-                Mage::throwException($result);
+                
+                $bundleTypeModel = Mage::getSingleton('bundle/product_type');
+
+                if ($result === $bundleTypeModel->getSpecifyOptionMessage()) {
+                    throw new Mage_Bundle_Exceptions_SpecifyOptionsException($result);
+                } else {
+                    Mage::throwException($result);
+                }
             }
         } else {
             Mage::throwException(Mage::helper('checkout')->__('The product does not exist.'));

@@ -271,7 +271,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         if ($order->getCustomerId()) {
             $session->setCustomerId($order->getCustomerId());
         } else {
-            $session->setCustomerId(false);
+            $session->unsetData('customer_id');
         }
 
         $session->setStoreId($order->getStoreId());
@@ -304,7 +304,13 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                 if ($qty > 0) {
                     $item = $this->initFromOrderItem($orderItem, $qty);
                     if (is_string($item)) {
-                        Mage::throwException($item);
+                        $bundleTypeModel = Mage::getSingleton('bundle/product_type');
+
+                        if ($item === $bundleTypeModel->getSpecifyOptionMessage()) {
+                            Mage::getSingleton('adminhtml/session_quote')->addError($orderItem->getName() . ' item is not available for re-order');
+                        } else {
+                            Mage::throwException($item);
+                        }
                     }
                 }
             }
