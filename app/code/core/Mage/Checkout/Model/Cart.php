@@ -244,7 +244,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
 
         $productId = $product->getId();
 
-        if (!$product->isConfigurable() && $product->hasStockItem()) {
+        if (!$product->isConfigurable() && $product->getStockItem()) {
             $minimumQty = $product->getStockItem()->getMinSaleQty();
             //If product was not found in cart and there is set minimal qty for it
             if ($minimumQty && $minimumQty > 0 && $request->getQty() < $minimumQty
@@ -272,7 +272,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
                     )
                     : $product->getProductUrl();
                 $this->getCheckoutSession()->setRedirectUrl($redirectUrl);
-                if ($this->getCheckoutSession()->hasUseNotice()) {
+                if ($this->getCheckoutSession()->getUseNotice() === null) {
                     $this->getCheckoutSession()->setUseNotice(true);
                 }
                 

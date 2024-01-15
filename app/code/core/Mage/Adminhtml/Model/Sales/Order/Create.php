@@ -271,7 +271,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
         if ($order->getCustomerId()) {
             $session->setCustomerId($order->getCustomerId());
         } else {
-            $session->unsetData('customer_id');
+            $session->setCustomerId(false);
         }
 
         $session->setStoreId($order->getStoreId());
