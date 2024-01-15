@@ -1,6 +1,5 @@
-<?php declare(strict_types=1);
+<?php
 
-class Mage_Bundle_Exceptions_SpecifyOptionsException extends \Exception
+class Mage_Bundle_Exceptions_SpecifyOptionsException extends Exception
 {
-    
 }
