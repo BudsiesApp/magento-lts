@@ -275,7 +275,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
                 if ($this->getCheckoutSession()->getUseNotice() === null) {
                     $this->getCheckoutSession()->setUseNotice(true);
                 }
-                
+
                 $bundleTypeModel = Mage::getSingleton('bundle/product_type');
 
                 if ($result === $bundleTypeModel->getSpecifyOptionMessage()) {
