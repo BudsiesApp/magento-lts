@@ -25,9 +25,27 @@
     </thead>
     <tbody>
     <?php $i=0; foreach ($_shipment->getAllTracks() as $_item): $i++ ?>
+        <?php 
+        $carrierCode = mb_strtolower($_item->getCarrierCode() ?? '');
+        $trackingTemplate = 'https://parcelsapp.com/en/tracking/%s';
+
+        if ($carrierCode === 'fedex') {
+            $trackingTemplate = 'https://www.fedex.com/fedextrack/?trknbr=%s';
+        } elseif ($carrierCode === 'usps') {
+            $trackingTemplate = 'https://tools.usps.com/go/TrackConfirmAction?qtc_tLabels1=%s';
+        } elseif (in_array($carrierCode, ['dhlint', 'dhl'], true)) {
+            $trackingTemplate = 'https://www.dhl.com/us-en/home/tracking.html?tracking-id=%s';
+        };
+
+        $trackingLink = sprintf($trackingTemplate, $_item->getNumber());
+        ?>
         <tr <?php echo $i%2?'bgcolor="#F6F6F6"':'' ?>>
             <td align="left" valign="top" style="padding:3px 9px"><?php echo $this->escapeHtml($_item->getTitle()) ?></td>
-            <td align="center" valign="top" style="padding:3px 9px"><?php echo $this->escapeHtml($_item->getNumber()) ?></td>
+            <td align="center" valign="top" style="padding:3px 9px">
+                <a href="<?php echo $trackingLink ?>" target="_blank">
+                    <?php echo $this->escapeHtml($_item->getNumber()) ?>
+                </a>
+            </td>
         </tr>
     <?php endforeach ?>
     </tbody>
