@@ -575,7 +575,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
                 'comment'  => $comment,
                 'billing'  => $order->getBillingAddress()
         ]);
-        
+
         /** @var Mage_Core_Model_Email_Queue $emailQueue */
         $emailQueue = Mage::getModel('core/email_queue');
         $emailQueue->setEntityId($this->getId())
