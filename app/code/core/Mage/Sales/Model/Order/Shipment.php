@@ -506,7 +506,15 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
                 'billing'      => $order->getBillingAddress(),
                 'payment_html' => $paymentBlockHtml
         ]);
-        $mailer->send();
+
+        /** @var Mage_Core_Model_Email_Queue $emailQueue */
+        $emailQueue = Mage::getModel('core/email_queue');
+        $emailQueue->setEntityId($this->getId())
+            ->setEntityType(self::HISTORY_ENTITY_NAME)
+            ->setEventType('new_order_shipment')
+            ->setStoreId($storeId);
+
+        $mailer->setQueue($emailQueue)->send();
 
         return $this;
     }
@@ -580,7 +588,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         $emailQueue = Mage::getModel('core/email_queue');
         $emailQueue->setEntityId($this->getId())
             ->setEntityType(self::HISTORY_ENTITY_NAME)
-            ->setEventType('new_order_shipment')
+            ->setEventType('order_shipment_update')
             ->setStoreId($storeId);
 
         $mailer->setQueue($emailQueue)->send();
